@@ -4,17 +4,17 @@
         <exit_code range="1:" />
     </stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/gene/($inputString)/diseases/?rows=1000&fetch_objects=true'
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input1/genes/?rows=1000&fetch_objects=true' > $output1
 	]]></command>
 	<inputs>
-	    <param  name="inputString" type="text" format="txt" multiple="false" label="Disease" />
+	    <param  name="input1" type="text" format="txt" multiple="false" label="Disease" />
     </inputs>
     <outputs>
 	        <data name="output1" format="json" />
     </outputs>
 	 <tests>
 		 <test>
-			 <param name="input1" value="disease.tsv"/>
+			 <param name="input1" value="OMIM:605543"/>
 			 <output name="output1" file="genes-for-disease.json"/>
 		 </test>
 	 </tests>
