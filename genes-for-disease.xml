@@ -1,0 +1,28 @@
+<tool id="monarch-genes-for-diseases" name="Pull Genes from Disease" version="0.1.0">
+    <requirements/>
+    <stdio>
+        <exit_code range="1:" />
+    </stdio>
+	<command><![CDATA[
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/gene/($inputString)/diseases/?rows=1000&fetch_objects=true'
+	]]></command>
+	<inputs>
+	    <param  name="inputString" type="text" format="txt" multiple="false" label="Disease" />
+    </inputs>
+    <outputs>
+	        <data name="output1" format="json" />
+    </outputs>
+	 <tests>
+		 <test>
+			 <param name="input1" value="disease.tsv"/>
+			 <output name="output1" file="genes-for-disease.json"/>
+		 </test>
+	 </tests>
+    <help><![CDATA[
+        Pulls data from Monarch Initiative BioLink API web services as JSON for a given disease.
+		https://api.monarchinitiative.org/api/#!/bioentity/get_disease_gene_associations
+    ]]></help>
+	<citations>
+		<citation type="doi">doi:10.5281/zenodo.56412</citation>
+    </citations>
+</tool>
