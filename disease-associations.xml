@@ -4,32 +4,42 @@
         <exit_code range="1:" />
     </stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/$type/$input1?rows=1000&fetch_objects=true' > $output1
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input/$association?rows=1000&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-	    <param  name="input1" type="text" format="txt" multiple="false" label="Disease" />
+	    <param  name="input" type="text" format="txt" multiple="false" label="Disease" />
 		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
-		<param  name="type" type="select" multiple="false" display="radio" label="Type">
-			<option value="genes">genes</option>
-			<option value="models">models</option>
-			<option value="phenotypes">phenotypes</option>
+		<param  name="association" type="select" multiple="false" display="radio" label="Type">
+			<option value="genes">Genes (e.g., OMIM:605543, DOID:678)</option>
+			<option value="models">Models (OMIM:605543, DOID:678)</option>
+			<option value="phenotypes">Phenotypes (OMIM:605543, DOID:678)</option>
 			<!--NOT YET SUPPORTED-->
 			<!--<option value="substance">substance</option>-->
 		</param>
+		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
     </inputs>
     <outputs>
-	        <data name="output1" format="json" />
+	        <data name="output" format="json" />
     </outputs>
 	 <tests>
 		 <test>
-			 <param name="input1" value="OMIM:605543"/>
-			 <param name="association1" value="genes"/>
-			 <output name="output1" file="genes-for-disease.json"/>
+			 <param name="input" value="OMIM:605543"/>
+			 <param name="association" value="genes"/>
+			 <output name="output" file="genes-for-disease.json"/>
+		 </test>
+		 <test>
+			 <param name="input" value="OMIM:605543"/>
+			 <param name="association" value="models"/>
+			 <output name="output" file="models-for-disease.json"/>
+		 </test>
+		 <test>
+			 <param name="input" value="OMIM:605543"/>
+			 <param name="association" value="phenotypes"/>
+			 <output name="output" file="phenotypes-for-disease.json"/>
 		 </test>
 	 </tests>
     <help><![CDATA[
         Pulls data from Monarch Initiative BioLink API web services as JSON for a given disease.
-		https://api.monarchinitiative.org/api/#!/bioentity/get_disease_gene_associations
     ]]></help>
 	<citations>
 		<citation type="doi">doi:10.5281/zenodo.56412</citation>

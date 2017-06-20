@@ -1,4 +1,4 @@
-<tool id="monarch-get-object" name="Get Object" version="0.1.0">
+<tool id="monarch-associations" name="Get Associations" version="0.1.0">
     <requirements/>
     <stdio>
         <exit_code range="1:" />
@@ -13,6 +13,7 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 			<option value="diseases"/>
 			<option value="genes"/>
 			<option value="genotypes"/>
+			<option value="association"/>
 			<!--NOT YET SUPPORTED-->
 			<!--<option value="phenotypes">phenotypes</option>-->
 			<!--<option value="substance">substance</option>-->
