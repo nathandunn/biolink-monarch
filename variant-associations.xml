@@ -1,4 +1,4 @@
-<tool id="monarch-genotype-associations" name="Genotype Associations" version="0.1.0">
+<tool id="monarch-variant-associations" name="Variant Associations" version="0.1.0">
     <requirements/>
     <stdio>
         <exit_code range="1:" />

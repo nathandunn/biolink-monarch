@@ -1,4 +1,4 @@
-<tool id="monarch-disease-assocations" name="Disease Associations" version="0.1.0">
+<tool id="monarch-disease-associations" name="Disease Associations" version="0.1.0">
     <requirements/>
     <stdio>
         <exit_code range="1:" />
