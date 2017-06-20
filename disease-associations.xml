@@ -1,13 +1,21 @@
-<tool id="monarch-genes-for-diseases" name="Pull Genes from Disease" version="0.1.0">
+<tool id="monarch-genes-for-diseases" name="Disease Associations" version="0.1.0">
     <requirements/>
     <stdio>
         <exit_code range="1:" />
     </stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input1/genes/?rows=1000&fetch_objects=true' > $output1
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input1/$association1/?rows=1000&fetch_objects=true' > $output1
 	]]></command>
 	<inputs>
 	    <param  name="input1" type="text" format="txt" multiple="false" label="Disease" />
+		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
+		<param  name="association1" type="select" multiple="false" display="radio" label="Type">
+			<option value="genes">genes</option>
+			<option value="models">models</option>
+			<option value="phenotypes">phenotypes</option>
+			<!--NOT YET SUPPORTED-->
+			<!--<option value="substance">substance</option>-->
+		</param>
     </inputs>
     <outputs>
 	        <data name="output1" format="json" />
@@ -15,6 +23,7 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 	 <tests>
 		 <test>
 			 <param name="input1" value="OMIM:605543"/>
+			 <param name="association1" value="genes"/>
 			 <output name="output1" file="genes-for-disease.json"/>
 		 </test>
 	 </tests>
