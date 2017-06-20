@@ -1,18 +1,20 @@
-<tool id="monarch-disease-assocations" name="Disease Associations" version="0.1.0">
+<tool id="monarch-genotype-associations" name="Genotype Associations" version="0.1.0">
     <requirements/>
     <stdio>
         <exit_code range="1:" />
     </stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/$type/$input1?rows=1000&fetch_objects=true' > $output1
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input1/$association1/?rows=1000&fetch_objects=true' > $output1
 	]]></command>
 	<inputs>
 	    <param  name="input1" type="text" format="txt" multiple="false" label="Disease" />
 		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
-		<param  name="type" type="select" multiple="false" display="radio" label="Type">
-			<option value="genes">genes</option>
-			<option value="models">models</option>
-			<option value="phenotypes">phenotypes</option>
+		<param  name="association1" type="select" multiple="false" display="radio" label="Type">
+			<option value="diseases"/>
+			<option value="function"/>
+			<option value="homologs"/>
+			<option value="interactions"/>
+			<option value="phenotypes"/>
 			<!--NOT YET SUPPORTED-->
 			<!--<option value="substance">substance</option>-->
 		</param>
