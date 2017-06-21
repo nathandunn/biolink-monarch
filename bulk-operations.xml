@@ -1,39 +1,50 @@
 <tool id="monarch-bulk-operations" name="Bulk Operations" version="0.1.0">
     <requirements/>
     <stdio>
-        <exit_code range="1:" />
+        <exit_code range="1:"/>
     </stdio>
-	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input1/$association1/?rows=1000&fetch_objects=true' > $output1
+    <command><![CDATA[
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/mart/$association/$object_category/$taxon?rows=$rows&fetch_objects=true' > $output
 	]]></command>
-	<inputs>
-	    <param  name="input1" type="text" format="txt" multiple="false" label="Disease" />
-		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
-		<param  name="association1" type="select" multiple="false" display="radio" label="Type">
-			<option value="diseases"/>
-			<option value="function"/>
-			<option value="homologs"/>
-			<option value="interactions"/>
-			<option value="phenotypes"/>
-			<!--NOT YET SUPPORTED-->
-			<!--<option value="substance">substance</option>-->
-		</param>
+    <inputs>
+        <param name="taxon" type="text" format="txt" multiple="false" label="Taxon (e.g., NCBITaxon:9606)"/>
+        <param name="object_category" type="text" format="txt" multiple="false" label="e.g. phenotype, disease"/>
+        <param name="association" type="select" multiple="false" display="radio" label="Type">
+            <option value="gene">Gene</option>
+            <option value="disease">Disease</option>
+            <option value="case">Case</option>
+        </param>
+        <param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
     </inputs>
     <outputs>
-	        <data name="output1" format="json" />
+        <data name="output" format="json"/>
     </outputs>
-	 <tests>
-		 <test>
-			 <param name="input1" value="OMIM:605543"/>
-			 <param name="association1" value="genes"/>
-			 <output name="output1" file="genes-for-disease.json"/>
-		 </test>
-	 </tests>
+    <tests>
+        <test>
+            <param name="type" value="gene"/>
+            <param name="taxon" value="NCBITaxon:9606"/>
+            <param name="object_category" value="phenotype"/>
+            <output name="output" file="gene-mart-for-phenotype.json"/>
+        </test>
+        <test>
+            <param name="type" value="disease"/>
+            <param name="taxon" value="NCBITaxon:9606"/>
+            <param name="object_category" value="phenotype"/>
+            <output name="output" file="disease-mart-for-phenotype.json"/>
+        </test>
+        <test>
+            <param name="type" value="case"/>
+            <param name="taxon" value="NCBITaxon:9606"/>
+            <param name="object_category" value="phenotype"/>
+            <output name="output" file="case-mart-for-phenotype.json"/>
+        </test>
+    </tests>
     <help><![CDATA[
-        Pulls data from Monarch Initiative BioLink API web services as JSON for a given disease.
-		https://api.monarchinitiative.org/api/#!/bioentity/get_disease_gene_associations
+        Pulls data from Monarch Initiative BioLink API web services as JSON.
+		https://api.monarchinitiative.org/api/
     ]]></help>
-	<citations>
-		<citation type="doi">doi:10.5281/zenodo.56412</citation>
+    <citations>
+        <citation type="doi">doi:10.5281/zenodo.56412</citation>
     </citations>
 </tool>
+
