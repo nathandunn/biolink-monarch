@@ -1,39 +1,56 @@
-<tool id="monarch-associations" name="Get Associations" version="0.1.0">
-    <requirements/>
-    <stdio>
-        <exit_code range="1:" />
-    </stdio>
+<tool id="monarch-get-object" name="Get Object" version="0.1.0">
+	<requirements/>
+	<stdio>
+		<exit_code range="1:" />
+	</stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input1/$association1/?rows=1000&fetch_objects=true' > $output1
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/$type$input$association?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-	    <param  name="input1" type="text" format="txt" multiple="false" label="Disease" />
-		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
-		<param  name="association1" type="select" multiple="false" display="radio" label="Type">
-			<option value="diseases"/>
-			<option value="genes"/>
-			<option value="genotypes"/>
-			<option value="association"/>
-			<!--NOT YET SUPPORTED-->
-			<!--<option value="phenotypes">phenotypes</option>-->
-			<!--<option value="substance">substance</option>-->
+		<param  name="input" type="text" format="txt" multiple="false" label="Object ID" />
+		<param  name="type" type="select" multiple="false" display="radio" label="Type">
+			<option value="">Any</option>
+			<option value="gene/">Gene (e.g., NCBIGene:84570)</option>
+			<option value="genotype/">Genotype (e.g., ZFIN:ZDB-FISH-150901-6607)</option>
 		</param>
-    </inputs>
-    <outputs>
-	        <data name="output1" format="json" />
-    </outputs>
-	 <tests>
-		 <test>
-			 <param name="input1" value="OMIM:605543"/>
-			 <param name="association1" value="genes"/>
-			 <output name="output1" file="genes-for-disease.json"/>
-		 </test>
-	 </tests>
-    <help><![CDATA[
-        Pulls data from Monarch Initiative BioLink API web services as JSON for a given disease.
-		https://api.monarchinitiative.org/api/#!/bioentity/get_disease_gene_associations
+		<param  name="associations" type="select" multiple="false" display="radio" label="Render Associations">
+			<option value="/associations/">True</option>
+			<option value="" checked="true">False</option>
+		</param>
+		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
+	</inputs>
+	<outputs>
+		<data name="output" format="json" />
+	</outputs>
+	<tests>
+		<test>
+			<param name="input" value="OMIM:605543"/>
+			<param name="type" value=""/>
+			<output name="output" file="bioentity-object-for-disease.json"/>
+		</test>
+		<test>
+			<param name="input" value="OMIM:605543"/>
+			<param name="type" value=""/>
+			<param name="associations" value="/associations/"/>
+			<output name="output" file="bioentity-associations-for-disease.json"/>
+		</test>
+		<test>
+			<param name="input" value="NCBIGene:84570"/>
+			<param name="association" value="gene/"/>
+			<output name="output" file="bioentity-object-for-gene.json"/>
+		</test>
+		<test>
+			<param name="input" value="ZFIN:ZDB-FISH-150901-6607"/>
+			<param name="association" value="genotype/"/>
+			<output name="output" file="bioentity-object-for-genotype.json"/>
+		</test>
+	</tests>
+	<help><![CDATA[
+        Pulls data from Monarch Initiative BioLink API web services as JSON.
+		https://api.monarchinitiative.org/api/
     ]]></help>
 	<citations>
 		<citation type="doi">doi:10.5281/zenodo.56412</citation>
-    </citations>
+	</citations>
 </tool>
+
