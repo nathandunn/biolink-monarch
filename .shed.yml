@@ -1,7 +1,5 @@
 categories: [Web Services]
-description: Exposes the Monarch Initiatvie Biolink API: https://api.monarchinitiative.org/api/ 
-long_description: Provides ontology-driven associations variants, phenotypes, diseases, genes, genotypes, and other bioentities
-  as JSON from the Monarch Initiative 'https://monarchinitiative.org' using the biolink api (https://github.com/biolink/biolink-api)
-  exposed for Monarch (https://api.monarchinitiative.org/api/).
-name: biolink-monarchinitiative 
+description: Exposes the Monarch Initiatvie Biolink API (https://api.monarchinitiative.org/api/)
+long_description: Provides ontology-driven associations variants, phenotypes, diseases, genes, genotypes, and other bioentities as JSON from the Monarch Initiative 'https://monarchinitiative.org' using the biolink api (https://github.com/biolink/biolink-api) exposed for Monarch (https://api.monarchinitiative.org/api/).
+name: biolinkmonarchinitiative
 owner: nathandunn
