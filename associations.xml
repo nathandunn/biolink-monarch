@@ -4,15 +4,15 @@
         <exit_code range="1:"/>
     </stdio>
     <command><![CDATA[
-	{#if $type == 'find'}
-        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type?rows=$rows&fetch_objects=true&subject=$subject' > $output
-	{#else if $type == 'from'}
+	#if $type == 'find'
+        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/?rows=$rows&fetch_objects=true&subject=$subject' > $output
+	#else if $type == 'from'
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject?rows=$rows&fetch_objects=true' > $output
-	{#else if $type == 'to'}
+	#else if $type == 'to'
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$object?rows=$rows&fetch_objects=true' > $output
-	{#else if $type == 'between'}
+	#else if $type == 'between'
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject/$object?rows=$rows&fetch_objects=true' > $output
-	{#end if}
+	#end if
 	]]></command>
     <inputs>
         <param name="subject" type="text" format="txt" multiple="false" label="Subject"/>
@@ -36,7 +36,6 @@
         </test>
         <test>
             <param name="subject" value="NCBIGene:84570"/>
-            <param name="type" value="find"/>
             <param name="type" value="from"/>
             <output name="output" file="from-associations-for-subject.json"/>
         </test>
