@@ -4,7 +4,7 @@
 		<exit_code range="1:" />
 	</stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/variant/$input/$association/?rows=$rows&fetch_objects=true' > $output
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/$input/associations/?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
 		<param  name="input" type="text" format="txt" multiple="false" label="Bioentity ID (e.g. ZFIN:ZDB-ALT-010427-8)" />
