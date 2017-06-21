@@ -1,39 +1,63 @@
 <tool id="monarch-associations" name="Associations" version="0.1.0">
-    <requirements/>
-    <stdio>
-        <exit_code range="1:" />
-    </stdio>
+	<requirements/>
+	<stdio>
+		<exit_code range="1:" />
+	</stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input1/$association1/?rows=1000&fetch_objects=true' > $output1
+	 if [ $type eq 'find' ]; then
+        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type?rows=$rows&fetch_objects=true&subject=$subject' > $output
+	 elif [ $type eq 'from' ]; then
+        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject?rows=$rows&fetch_objects=true' > $output
+	 elif [ $type eq 'to' ]; then
+        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$object?rows=$rows&fetch_objects=true' > $output
+	 elif [ $type eq 'between' ]; then
+        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject/$object?rows=$rows&fetch_objects=true' > $output
+	 fi
 	]]></command>
 	<inputs>
-	    <param  name="input1" type="text" format="txt" multiple="false" label="Disease" />
-		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
-		<param  name="association1" type="select" multiple="false" display="radio" label="Type">
-			<option value="diseases"/>
-			<option value="function"/>
-			<option value="homologs"/>
-			<option value="interactions"/>
-			<option value="phenotypes"/>
-			<!--NOT YET SUPPORTED-->
-			<!--<option value="substance">substance</option>-->
+		<param  name="subject" type="text" format="txt" multiple="false" label="Subject" />
+		<param  name="object" type="text" format="txt" multiple="false" label="Object" />
+		<param  name="type" type="select" multiple="false" display="radio" label="Type">
+			<option value="find">Find (subject)</option>
+			<option value="from">From (subject) </option>
+			<option value="to">To (object)</option>
+			<option value="between">Between (subject -> object)</option>
 		</param>
-    </inputs>
-    <outputs>
-	        <data name="output1" format="json" />
-    </outputs>
-	 <tests>
-		 <test>
-			 <param name="input1" value="OMIM:605543"/>
-			 <param name="association1" value="genes"/>
-			 <output name="output1" file="genes-for-disease.json"/>
-		 </test>
-	 </tests>
-    <help><![CDATA[
-        Pulls data from Monarch Initiative BioLink API web services as JSON for a given disease.
-		https://api.monarchinitiative.org/api/#!/bioentity/get_disease_gene_associations
+		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
+	</inputs>
+	<outputs>
+		<data name="output" format="json" />
+	</outputs>
+	<tests>
+		<test>
+			<param name="subject" value="NCBIGene:84570"/>
+            <param name="type" value="find"/>
+			<output name="output" file="find-associations-for-subject.json"/>
+		</test>
+        <test>
+            <param name="subject" value="NCBIGene:84570"/>
+            <param name="type" value="find"/>
+            <param name="type" value="from"/>
+            <output name="output" file="from-associations-for-subject.json"/>
+        </test>
+        <test>
+            <param name="object" value="MP:0013765"/>
+            <param name="type" value="to"/>
+            <output name="output" file="to-associations-for-object.json"/>
+        </test>
+        <test>
+            <param name="subject" value="MGI:1342287"/>
+            <param name="object" value="MP:0013765"/>
+            <param name="type" value="between"/>
+            <output name="output" file="between-associations.json"/>
+        </test>
+	</tests>
+	<help><![CDATA[
+        Pulls data from Monarch Initiative BioLink API web services as JSON.
+		https://api.monarchinitiative.org/api/
     ]]></help>
 	<citations>
 		<citation type="doi">doi:10.5281/zenodo.56412</citation>
-    </citations>
+	</citations>
 </tool>
+
