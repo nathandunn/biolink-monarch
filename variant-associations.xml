@@ -30,7 +30,7 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 			<output name="output" file="genotypes-for-variant.json"/>
 		</test>
 		<test>
-			<param name="input" value="ZFIN:ZDB-ALT-010427-8"/>
+			<param name="input" value="ClinVarVariant:65929"/>
 			<param name="association" value="phenotypes"/>
 			<output name="output" file="phenotypes-for-variant.json"/>
 		</test>
