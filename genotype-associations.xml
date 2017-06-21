@@ -21,23 +21,23 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
     </outputs>
 	 <tests>
 		 <test>
-			 <param name="input" value="NCBIGene:4750"/>
+			 <param name="input" value="ZFIN:ZDB-FISH-150901-4286"/>
 			 <param name="association" value="diseases"/>
 			 <output name="output" file="diseases-for-genotype.json"/>
 		 </test>
          <test>
-             <param name="input" value="NCBIGene:4750"/>
+             <param name="input" value="ZFIN:ZDB-FISH-150901-4286"/>
              <param name="association" value="genes"/>
              <output name="output" file="genes-for-genotype.json"/>
          </test>
          <test>
-             <param name="input" value="NCBIGene:4750"/>
-             <param name="association" value="homologs"/>
+             <param name="input" value="ZFIN:ZDB-FISH-150901-4286"/>
+             <param name="association" value="genotypes"/>
              <output name="output" file="genotypes-for-genotype.json"/>
          </test>
          <test>
-             <param name="input" value="NCBIGene:4750"/>
-             <param name="association" value="interactions"/>
+             <param name="input" value="ZFIN:ZDB-FISH-150901-4286"/>
+             <param name="association" value="phenotypes"/>
              <output name="output" file="phenotypes-for-genotype.json"/>
          </test>
 	 </tests>
