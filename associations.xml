@@ -1,39 +1,39 @@
 <tool id="monarch-associations" name="Associations" version="0.1.0">
-	<requirements/>
-	<stdio>
-		<exit_code range="1:" />
-	</stdio>
-	<command><![CDATA[
-	 if [ "$type" == "find" ]; then
+    <requirements/>
+    <stdio>
+        <exit_code range="1:"/>
+    </stdio>
+    <command><![CDATA[
+	{#if $type == 'find'}
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type?rows=$rows&fetch_objects=true&subject=$subject' > $output
-	 elif [ "$type" == "from" ]; then
+	{#else if $type == 'from'}
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject?rows=$rows&fetch_objects=true' > $output
-	 elif [ "$type" == "to" ]; then
+	{#else if $type == 'to'}
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$object?rows=$rows&fetch_objects=true' > $output
-	 elif [ "$type" == "between" ]; then
+	{#else if $type == 'between'}
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject/$object?rows=$rows&fetch_objects=true' > $output
-	 fi
+	{#end if}
 	]]></command>
-	<inputs>
-		<param  name="subject" type="text" format="txt" multiple="false" label="Subject" />
-		<param  name="object" type="text" format="txt" multiple="false" label="Object" />
-		<param  name="type" type="select" multiple="false" display="radio" label="Type">
-			<option value="find">Find (subject)</option>
-			<option value="from">From (subject) </option>
-			<option value="to">To (object)</option>
-			<option value="between">Between (subject -> object)</option>
-		</param>
-		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
-	</inputs>
-	<outputs>
-		<data name="output" format="json" />
-	</outputs>
-	<tests>
-		<test>
-			<param name="subject" value="NCBIGene:84570"/>
+    <inputs>
+        <param name="subject" type="text" format="txt" multiple="false" label="Subject"/>
+        <param name="object" type="text" format="txt" multiple="false" label="Object"/>
+        <param name="type" type="select" multiple="false" display="radio" label="Type">
+            <option value="find">Find (subject)</option>
+            <option value="from">From (subject)</option>
+            <option value="to">To (object)</option>
+            <option value="between">Between (subject -> object)</option>
+        </param>
+        <param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
+    </inputs>
+    <outputs>
+        <data name="output" format="json"/>
+    </outputs>
+    <tests>
+        <test>
+            <param name="subject" value="NCBIGene:84570"/>
             <param name="type" value="find"/>
-			<output name="output" file="find-associations-for-subject.json"/>
-		</test>
+            <output name="output" file="find-associations-for-subject.json"/>
+        </test>
         <test>
             <param name="subject" value="NCBIGene:84570"/>
             <param name="type" value="find"/>
@@ -51,13 +51,13 @@
             <param name="type" value="between"/>
             <output name="output" file="between-associations.json"/>
         </test>
-	</tests>
-	<help><![CDATA[
+    </tests>
+    <help><![CDATA[
         Pulls data from Monarch Initiative BioLink API web services as JSON.
 		https://api.monarchinitiative.org/api/
     ]]></help>
-	<citations>
-		<citation type="doi">doi:10.5281/zenodo.56412</citation>
-	</citations>
+    <citations>
+        <citation type="doi">doi:10.5281/zenodo.56412</citation>
+    </citations>
 </tool>
 
