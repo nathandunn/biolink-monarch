@@ -23,18 +23,21 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
         <test>
             <param name="type" value="gene"/>
             <param name="taxon" value="NCBITaxon:9606"/>
+            <param name="rows" value="10"/>
             <param name="object_category" value="phenotype"/>
             <output name="output" file="gene-mart-for-phenotype.json"/>
         </test>
         <test>
             <param name="type" value="disease"/>
             <param name="taxon" value="NCBITaxon:9606"/>
+            <param name="rows" value="10"/>
             <param name="object_category" value="phenotype"/>
             <output name="output" file="disease-mart-for-phenotype.json"/>
         </test>
         <test>
             <param name="type" value="case"/>
             <param name="taxon" value="NCBITaxon:9606"/>
+            <param name="rows" value="10"/>
             <param name="object_category" value="phenotype"/>
             <output name="output" file="case-mart-for-phenotype.json"/>
         </test>
