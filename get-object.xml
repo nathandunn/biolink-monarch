@@ -10,8 +10,8 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 		<param  name="input" type="text" format="txt" multiple="false" label="Object ID" />
 		<param  name="type" type="select" multiple="false" display="radio" label="Type">
 			<option value="">Any</option>
-			<option value="gene/">Gene (e.g., NCBIGene:84570)</option>
-			<option value="genotype/">Genotype (e.g., ZFIN:ZDB-FISH-150901-6607)</option>
+			<option value="gene/">Gene (e.g. NCBIGene:84570)</option>
+			<option value="genotype/">Genotype (e.g. ZFIN:ZDB-FISH-150901-6607)</option>
 		</param>
 		<param  name="associations" type="select" multiple="false" display="radio" label="Render Associations">
 			<option value="/associations/">True</option>

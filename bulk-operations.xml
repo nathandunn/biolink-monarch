@@ -7,8 +7,8 @@
 curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/mart/$association/$object_category/$taxon?rows=$rows&fetch_objects=true' > $output
 	]]></command>
     <inputs>
-        <param name="taxon" type="text" format="txt" multiple="false" label="Taxon (e.g., NCBITaxon:9606)"/>
-        <param name="object_category" type="text" format="txt" multiple="false" label="e.g. phenotype, disease"/>
+        <param name="taxon" type="text" format="txt" multiple="false" label="Taxon (e.g. NCBITaxon:9606)"/>
+        <param name="object_category" type="text" format="txt" multiple="false" label="Object Category (e.g. phenotype, disease)"/>
         <param name="association" type="select" multiple="false" display="radio" label="Type">
             <option value="gene">Gene</option>
             <option value="disease">Disease</option>

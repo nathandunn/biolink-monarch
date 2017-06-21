@@ -7,12 +7,12 @@
 curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/genotype/$input/$association/?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-	    <param  name="input" type="text" format="txt" multiple="false" label="Genotype" />
+	    <param  name="input" type="text" format="txt" multiple="false" label="Genotype (e.g. ZFIN:ZDB-FISH-150901-4286)" />
 		<param  name="association" type="select" multiple="false" display="radio" label="Type">
-			<option value="diseases">Diseases (e.g., ZFIN:ZDB-FISH-150901-4286)</option>
-			<option value="genes">Genes (e.g., ZFIN:ZDB-FISH-150901-4286)</option>
-			<option value="genotypes">Genotypes (e.g., ZFIN:ZDB-FISH-150901-4286)</option>
-			<option value="phenotypes">Phenotypes (e.g., ZFIN:ZDB-FISH-150901-4286)</option>
+			<option value="diseases">Diseases </option>
+			<option value="genes">Genes</option>
+			<option value="genotypes">Genotypes</option>
+			<option value="phenotypes">Phenotypes</option>
 		</param>
         <param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
     </inputs>

@@ -7,7 +7,7 @@
 curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/phenotype/$input/gene/$taxid/ids?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-		<param  name="input" type="text" format="txt" multiple="false" label="Phenotype ID (e.g., MP:0001569)" />
+		<param  name="input" type="text" format="txt" multiple="false" label="Phenotype ID (e.g. MP:0001569)" />
 		<param  name="taxid" type="text" format="txt" multiple="false" label="Taxon ID (e.g. NCBITaxon:10090)" />
 		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
 	</inputs>

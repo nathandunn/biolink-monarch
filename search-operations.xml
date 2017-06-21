@@ -7,7 +7,7 @@
 curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/search/entity/$input?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-		<param  name="input" type="text" format="txt" multiple="false" label="Variant (e.g. shh, parkinson, femur)" />
+		<param  name="input" type="text" format="txt" multiple="false" label="Search Term (e.g. shh, parkinson, femur)" />
 		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
 	</inputs>
 	<outputs>

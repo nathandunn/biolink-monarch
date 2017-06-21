@@ -7,11 +7,11 @@
 curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input/$association/?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-	    <param  name="input" type="text" format="txt" multiple="false" label="Disease" />
+	    <param  name="input" type="text" format="txt" multiple="false" label="Disease  (e.g. OMIM:605543, DOID:678)" />
 		<param  name="association" type="select" multiple="false" display="radio" label="Type">
-			<option value="genes">Genes (e.g., OMIM:605543, DOID:678)</option>
-			<option value="models">Models (OMIM:605543, DOID:678)</option>
-			<option value="phenotypes">Phenotypes (OMIM:605543, DOID:678)</option>
+			<option value="genes">Genes</option>
+			<option value="models">Models</option>
+			<option value="phenotypes">Phenotypes</option>
 		</param>
 		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
     </inputs>
