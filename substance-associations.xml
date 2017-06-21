@@ -9,9 +9,9 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 	<inputs>
 		<param  name="input" type="text" format="txt" multiple="false" label="Substance (e.g. CHEBI:40036)" />
 		<param  name="association" type="select" multiple="false" display="radio" label="Type">
-			<option value="participates_in">Participates In</option>
+			<option value="participant_in">Participant In</option>
 			<option value="roles">Roles</option>
-			<option value="treats">Treats</option>
+			<!--<option value="treats">Treats</option>-->
 		</param>
 		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
 	</inputs>
@@ -21,19 +21,20 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 	<tests>
 		<test>
 			<param name="input" value="CHEBI:40036"/>
-			<param name="association" value="participates_in"/>
-			<output name="output" file="participates_in-for-substance.json"/>
+			<param name="association" value="participant_in"/>
+			<output name="output" file="participatant_in-for-substance.json"/>
 		</test>
 		<test>
-			<param name="input" value="OMIM:605543"/>
+			<param name="input" value="CHEBI:40036"/>
 			<param name="association" value="roles"/>
 			<output name="output" file="roles-for-substance.json"/>
 		</test>
-		<test>
-			<param name="input" value="OMIM:605543"/>
-			<param name="association" value="treats"/>
-			<output name="output" file="treats-for-substance.json"/>
-		</test>
+		<!--seems to break-->
+		<!--<test>-->
+			<!--<param name="input" value="CHEBI:40036"/>-->
+			<!--<param name="association" value="treats"/>-->
+			<!--<output name="output" file="treats-for-substance.json"/>-->
+		<!--</test>-->
 	</tests>
 	<help><![CDATA[
         Pulls data from Monarch Initiative BioLink API web services as JSON.
