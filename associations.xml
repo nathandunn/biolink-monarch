@@ -4,13 +4,13 @@
 		<exit_code range="1:" />
 	</stdio>
 	<command><![CDATA[
-	 if [ $type eq 'find' ]; then
+	 if [ "$type" == "find" ]; then
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type?rows=$rows&fetch_objects=true&subject=$subject' > $output
-	 elif [ $type eq 'from' ]; then
+	 elif [ "$type" == "from" ]; then
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject?rows=$rows&fetch_objects=true' > $output
-	 elif [ $type eq 'to' ]; then
+	 elif [ "$type" == "to" ]; then
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$object?rows=$rows&fetch_objects=true' > $output
-	 elif [ $type eq 'between' ]; then
+	 elif [ "$type" == "between" ]; then
         curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject/$object?rows=$rows&fetch_objects=true' > $output
 	 fi
 	]]></command>
