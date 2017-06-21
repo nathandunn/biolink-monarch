@@ -1,30 +1,46 @@
 <tool id="monarch-variant-associations" name="Variant Associations" version="0.1.0">
-    <requirements/>
-    <stdio>
-        <exit_code range="1:" />
-    </stdio>
+	<requirements/>
+	<stdio>
+		<exit_code range="1:" />
+	</stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/$input1/associations/?rows=1000&fetch_objects=true' > $output1
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/variant/$input/$association/?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-	    <param  name="input1" type="text" format="txt" multiple="false" label="Any bioentity object (disease, gene, phenotype, etc.)" />
-		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
-    </inputs>
-    <outputs>
-	        <data name="output1" format="json" />
-    </outputs>
-	 <tests>
-		 <test>
-			 <param name="input1" value="OMIM:605543"/>
-			 <param name="association1" value="genes"/>
-			 <output name="output1" file="genes-for-disease.json"/>
-		 </test>
-	 </tests>
-    <help><![CDATA[
-        Pulls data from Monarch Initiative BioLink API web services as JSON for a given disease.
-		https://api.monarchinitiative.org/api/#!/bioentity/get_disease_gene_associations
+		<param  name="input" type="text" format="txt" multiple="false" label="Variant (e.g. ZFIN:ZDB-ALT-010427-8, ClinVarVariant:39783)" />
+		<param  name="association" type="select" multiple="false" display="radio" label="Type">
+			<option value="genes">Genes</option>
+			<option value="genotypes">Genotypes</option>
+			<option value="phenotypes">Phenotypes</option>
+		</param>
+		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
+	</inputs>
+	<outputs>
+		<data name="output" format="json" />
+	</outputs>
+	<tests>
+		<test>
+			<param name="input" value="ZFIN:ZDB-ALT-010427-8"/>
+			<param name="association" value="genes"/>
+			<output name="output" file="genes-for-variant.json"/>
+		</test>
+		<test>
+			<param name="input" value="ZFIN:ZDB-ALT-010427-8"/>
+			<param name="association" value="genotypes"/>
+			<output name="output" file="genotypes-for-variant.json"/>
+		</test>
+		<test>
+			<param name="input" value="ZFIN:ZDB-ALT-010427-8"/>
+			<param name="association" value="phenotypes"/>
+			<output name="output" file="phenotypes-for-variant.json"/>
+		</test>
+	</tests>
+	<help><![CDATA[
+        Pulls data from Monarch Initiative BioLink API web services as JSON.
+		https://api.monarchinitiative.org/api/
     ]]></help>
 	<citations>
 		<citation type="doi">doi:10.5281/zenodo.56412</citation>
-    </citations>
+	</citations>
 </tool>
+

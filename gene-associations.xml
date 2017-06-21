@@ -4,10 +4,10 @@
         <exit_code range="1:"/>
     </stdio>
     <command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/gene/$input/$association/?rows=1000&fetch_objects=true' > $output
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/gene/$input/$association/?rows=$rows&fetch_objects=true' > $output
 	]]></command>
     <inputs>
-        <param name="input" type="text" format="txt" multiple="false" label="Disease"/>
+        <param name="input" type="text" format="txt" multiple="false" label="Gene"/>
         <param name="association" type="select" multiple="false" display="radio" label="Type">
             <option value="diseases">Diseases (e.g,. NCBIGene:4750, Orphanet:173505)</option>
             <option value="function">Function (e.g,. NCBIGene:4750, Orphanet:173505)</option>
@@ -48,8 +48,8 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
         </test>
     </tests>
     <help><![CDATA[
-        Pulls data from Monarch Initiative BioLink API web services as JSON for a given disease.
-		https://api.monarchinitiative.org/api/#!/bioentity/get_disease_gene_associations
+        Pulls data from Monarch Initiative BioLink API web services as JSON.
+		https://api.monarchinitiative.org/api/
     ]]></help>
     <citations>
         <citation type="doi">doi:10.5281/zenodo.56412</citation>
