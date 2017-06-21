@@ -4,30 +4,42 @@
         <exit_code range="1:" />
     </stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/disease/$input1/$association1/?rows=1000&fetch_objects=true' > $output1
+curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/genotype/$input/$association/?rows=1000&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-	    <param  name="input1" type="text" format="txt" multiple="false" label="Disease" />
-		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
-		<param  name="association1" type="select" multiple="false" display="radio" label="Type">
-			<option value="diseases"/>
-			<option value="function"/>
-			<option value="homologs"/>
-			<option value="interactions"/>
-			<option value="phenotypes"/>
-			<!--NOT YET SUPPORTED-->
-			<!--<option value="substance">substance</option>-->
+	    <param  name="input" type="text" format="txt" multiple="false" label="Disease" />
+		<param  name="association" type="select" multiple="false" display="radio" label="Type">
+			<option value="diseases">Diseases (e.g., ZFIN:ZDB-FISH-150901-4286)</option>
+			<option value="genes">Genes (e.g., ZFIN:ZDB-FISH-150901-4286)</option>
+			<option value="genotypes">Genotypes (e.g., ZFIN:ZDB-FISH-150901-4286)</option>
+			<option value="phenotypes">Phenotypes (e.g., ZFIN:ZDB-FISH-150901-4286)</option>
 		</param>
+        <param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
     </inputs>
     <outputs>
-	        <data name="output1" format="json" />
+	        <data name="output" format="json" />
     </outputs>
 	 <tests>
 		 <test>
-			 <param name="input1" value="OMIM:605543"/>
-			 <param name="association1" value="genes"/>
-			 <output name="output1" file="genes-for-disease.json"/>
+			 <param name="input" value="NCBIGene:4750"/>
+			 <param name="association" value="diseases"/>
+			 <output name="output" file="diseases-for-genotype.json"/>
 		 </test>
+         <test>
+             <param name="input" value="NCBIGene:4750"/>
+             <param name="association" value="genes"/>
+             <output name="output" file="genes-for-genotype.json"/>
+         </test>
+         <test>
+             <param name="input" value="NCBIGene:4750"/>
+             <param name="association" value="homologs"/>
+             <output name="output" file="genotypes-for-genotype.json"/>
+         </test>
+         <test>
+             <param name="input" value="NCBIGene:4750"/>
+             <param name="association" value="interactions"/>
+             <output name="output" file="phenotypes-for-genotype.json"/>
+         </test>
 	 </tests>
     <help><![CDATA[
         Pulls data from Monarch Initiative BioLink API web services as JSON for a given disease.

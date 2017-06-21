@@ -8,13 +8,10 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 	]]></command>
 	<inputs>
 	    <param  name="input" type="text" format="txt" multiple="false" label="Disease" />
-		<!--<param  name="input2" type="text" format="txt" multiple="false" label="Associated Type: genes, models, phenotypes, substance" />-->
 		<param  name="association" type="select" multiple="false" display="radio" label="Type">
 			<option value="genes">Genes (e.g., OMIM:605543, DOID:678)</option>
 			<option value="models">Models (OMIM:605543, DOID:678)</option>
 			<option value="phenotypes">Phenotypes (OMIM:605543, DOID:678)</option>
-			<!--NOT YET SUPPORTED-->
-			<!--<option value="substance">substance</option>-->
 		</param>
 		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
     </inputs>
