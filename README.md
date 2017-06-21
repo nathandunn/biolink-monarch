@@ -1,6 +1,8 @@
 # Biolink-Monarch
 
 [![Build Status](https://travis-ci.org/nathandunn/biolink-monarch.svg?branch=master)](https://travis-ci.org/nathandunn/biolink-monarch)
+[![DOI](https://zenodo.org/badge/94568425.svg)](https://zenodo.org/badge/latestdoi/94568425)
+
 
 Wrapper around the [Monarch Iniatitive Biolink API](https://api.monarchinitiative.org/api/). 
 
