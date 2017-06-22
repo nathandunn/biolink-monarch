@@ -1,8 +1,8 @@
 <tool id="monarch-bioentity-associations" name="Bioentity Associations" version="0.1.0">
-	<requirements/>
-	<stdio>
-		<exit_code range="1:" />
-	</stdio>
+	<macros>
+		<import>macros.xml</import>
+	</macros>
+	<expand macro="frontmatter" />
 	<command><![CDATA[
 curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/$input/associations/?rows=$rows&fetch_objects=true' > $output
 	]]></command>
@@ -10,21 +10,13 @@ curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchini
 		<param  name="input" type="text" format="txt" multiple="false" label="Bioentity ID (e.g. ZFIN:ZDB-ALT-010427-8)" />
 		<param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
 	</inputs>
-	<outputs>
-		<data name="output" format="json" />
-	</outputs>
+	<expand macro="outputs" />
 	<tests>
 		<test>
 			<param name="input" value="ZFIN:ZDB-ALT-010427-8"/>
 			<output name="output" file="associations-for-variant.json"/>
 		</test>
 	</tests>
-	<help><![CDATA[
-        Pulls data from Monarch Initiative BioLink API web services as JSON.
-		https://api.monarchinitiative.org/api/
-    ]]></help>
-	<citations>
-		<citation type="doi">doi:10.5281/zenodo.815635</citation>
-	</citations>
+	<expand macro="citations" />
 </tool>
 

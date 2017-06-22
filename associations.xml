@@ -1,8 +1,8 @@
 <tool id="monarch-associations" name="Associations" version="0.1.0">
-    <requirements/>
-    <stdio>
-        <exit_code range="1:"/>
-    </stdio>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
+    <expand macro="frontmatter" />
     <command><![CDATA[
 	#if $type == 'find'
         curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/?rows=$rows&fetch_objects=true&subject=$subject' > $output
@@ -25,9 +25,7 @@
         </param>
         <param name="rows" type="text" format="txt" multiple="false" value="1000" label="Num Rows"/>
     </inputs>
-    <outputs>
-        <data name="output" format="json"/>
-    </outputs>
+    <expand macro="outputs" />
     <tests>
         <test>
             <param name="subject" value="NCBIGene:84570"/>
@@ -51,12 +49,6 @@
             <output name="output" file="between-associations.json"/>
         </test>
     </tests>
-    <help><![CDATA[
-        Pulls data from Monarch Initiative BioLink API web services as JSON.
-		https://api.monarchinitiative.org/api/
-    ]]></help>
-    <citations>
-        <citation type="doi">doi:10.5281/zenodo.815635</citation>
-    </citations>
+    <expand macro="citations" />
 </tool>
 
