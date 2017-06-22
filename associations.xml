@@ -5,13 +5,13 @@
     </stdio>
     <command><![CDATA[
 	#if $type == 'find'
-        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/?rows=$rows&fetch_objects=true&subject=$subject' > $output
+        curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/?rows=$rows&fetch_objects=true&subject=$subject' > $output
 	#else if $type == 'from'
-        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject?rows=$rows&fetch_objects=true' > $output
+        curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject?rows=$rows&fetch_objects=true' > $output
 	#else if $type == 'to'
-        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$object?rows=$rows&fetch_objects=true' > $output
+        curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$object?rows=$rows&fetch_objects=true' > $output
 	#else if $type == 'between'
-        curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject/$object?rows=$rows&fetch_objects=true' > $output
+        curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/association/$type/$subject/$object?rows=$rows&fetch_objects=true' > $output
 	#end if
 	]]></command>
     <inputs>
@@ -56,7 +56,7 @@
 		https://api.monarchinitiative.org/api/
     ]]></help>
     <citations>
-        <citation type="doi">doi:10.5281/zenodo.56412</citation>
+        <citation type="doi">doi:10.5281/zenodo.815635</citation>
     </citations>
 </tool>
 

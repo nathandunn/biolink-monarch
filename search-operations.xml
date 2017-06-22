@@ -4,7 +4,7 @@
 		<exit_code range="1:" />
 	</stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/search/entity/$input?rows=$rows&fetch_objects=true' > $output
+curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/search/entity/$input?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
 		<param  name="input" type="text" format="txt" multiple="false" label="Search Term (e.g. shh, parkinson, femur)" />
@@ -32,7 +32,7 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 		https://api.monarchinitiative.org/api/
     ]]></help>
 	<citations>
-		<citation type="doi">doi:10.5281/zenodo.56412</citation>
+		<citation type="doi">doi:10.5281/zenodo.815635</citation>
 	</citations>
 </tool>
 

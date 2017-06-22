@@ -4,10 +4,10 @@
         <exit_code range="1:" />
     </stdio>
 	<command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/genotype/$input/$association/?rows=$rows&fetch_objects=true' > $output
+curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/bioentity/genotype/$input/$association/?rows=$rows&fetch_objects=true' > $output
 	]]></command>
 	<inputs>
-	    <param  name="input" type="text" format="txt" multiple="false" label="Genotype (e.g. ZFIN:ZDB-FISH-150901-4286)" />
+	    <param  name="input" type="text" format="txt" multiple="false" label="Genotype (e.g. dbSNPIndividual:12141)" />
 		<param  name="association" type="select" multiple="false" display="radio" label="Type">
 			<option value="diseases">Diseases </option>
 			<option value="genes">Genes</option>
@@ -21,22 +21,22 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
     </outputs>
 	 <tests>
 		 <test>
-			 <param name="input" value="ZFIN:ZDB-FISH-150901-4286"/>
+			 <param name="input" value="dbSNPIndividual:12141"/>
 			 <param name="association" value="diseases"/>
 			 <output name="output" file="diseases-for-genotype.json"/>
 		 </test>
          <test>
-             <param name="input" value="ZFIN:ZDB-FISH-150901-4286"/>
+             <param name="input" value="dbSNPIndividual:12141"/>
              <param name="association" value="genes"/>
              <output name="output" file="genes-for-genotype.json"/>
          </test>
          <test>
-             <param name="input" value="ZFIN:ZDB-FISH-150901-4286"/>
+             <param name="input" value="dbSNPIndividual:12141"/>
              <param name="association" value="genotypes"/>
              <output name="output" file="genotypes-for-genotype.json"/>
          </test>
          <test>
-             <param name="input" value="ZFIN:ZDB-FISH-150901-4286"/>
+             <param name="input" value="dbSNPIndividual:12141"/>
              <param name="association" value="phenotypes"/>
              <output name="output" file="phenotypes-for-genotype.json"/>
          </test>
@@ -46,6 +46,6 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 		https://api.monarchinitiative.org/api/
     ]]></help>
 	<citations>
-		<citation type="doi">doi:10.5281/zenodo.56412</citation>
+		<citation type="doi">doi:10.5281/zenodo.815635</citation>
     </citations>
 </tool>

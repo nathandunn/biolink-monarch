@@ -4,7 +4,7 @@
         <exit_code range="1:"/>
     </stdio>
     <command><![CDATA[
-curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/mart/$association/$object_category/$taxon?rows=$rows&fetch_objects=true' > $output
+curl --silent -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.org/api/mart/$association/$object_category/$taxon?rows=$rows&fetch_objects=true' > $output
 	]]></command>
     <inputs>
         <param name="taxon" type="text" format="txt" multiple="false" label="Taxon (e.g. NCBITaxon:9606)"/>
@@ -48,7 +48,7 @@ curl -X GET --header 'Accept: application/json' 'https://api.monarchinitiative.o
 		https://api.monarchinitiative.org/api/
     ]]></help>
     <citations>
-        <citation type="doi">doi:10.5281/zenodo.56412</citation>
+        <citation type="doi">doi:10.5281/zenodo.815635</citation>
     </citations>
 </tool>
 
