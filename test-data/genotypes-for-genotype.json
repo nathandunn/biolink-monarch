@@ -1,1 +1,1 @@
-{"associations": [], "compact_associations": null, "objects": [], "start": null, "numFound": null, "facet_pivot": null, "facet_counts": {"subject_taxon_label": {}, "object_closure": {}}}
+{"compact_associations": null, "associations": [], "objects": [], "numFound": null, "start": null, "facet_counts": {"object_closure": {}, "subject_taxon_label": {}}, "facet_pivot": null}
