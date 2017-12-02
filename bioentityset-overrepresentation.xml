@@ -4,16 +4,34 @@
 	</macros>
 	<expand macro="frontmatter" />
 	<command><![CDATA[
+#*
 curl --silent -X GET --header 'Accept: application/json' 'https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/?object_category=phenotype&subject=NCBIGene%3A6295&subject=NCBIGene%3A1258&subject=NCBIGene%3A3614&subject=NCBIGene%3A26121&subject=NCBIGene%3A7275&subject=NCBIGene%3A55857&subject=NCBIGene%3A79797&subject=NCBIGene%3A10594&subject=NCBIGene%3A64218&subject=NCBIGene%3A7401&ontology=hp&subject_category=gene&taxon=NCBITaxon%3A9606&object_category=phenotype&max_p_value=0.05' > $output
+*#
+#set $subject_string = ''
+#set $subject = $subject.replace(' ', '')
+#set $subject = $subject.replace(',', ' ')
+#for $word in $subject.split(' ')
+#set $subject_string += '&subject='+str($word)
+#end for
+
+#set $background_string = ''
+#set $background = $background.replace(' ', '')
+#set $background = $background.replace(',', ' ')
+#for $word in $background.split(' ')
+#set $background_string += '&background='+str($word)
+#end for
+
+curl --silent -X GET --header 'Accept: application/json' 'https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/?object_category=$object_category$subject_string&ontology=$ontology&subject_category=$subject_category&taxon=$taxon&object_category=$object_category&max_p_value=$max_p_value' > $output
 	]]></command>
 	<inputs>
 		<param  name="object_category" type="text" format="txt" multiple="false" label="CATEGORY of entity at link OBJECT (target), e.g. function, phenotype, disease" />
-		<param  name="subject" type="text" format="txt" multiple="true" label="Entity ids to be examined, e.g. NCBIGene:9342, NCBIGene:7227, NCBIGene:8131, NCBIGene:157570, NCBIGene:51164, NCBIGene:6689, NCBIGene:6387" />
+		<param  name="subject" type="text" format="txt" multiple="true" label="Entity ids to be examined, e.g. NCBIGene:6295,NCBIGene:1258 ,NCBIGene:3614 ,NCBIGene:26121 ,NCBIGene:7275 ,NCBIGene:55857 ,NCBIGene:79797 ,NCBIGene:10594 ,NCBIGene:64218 ,NCBIGene:7401"
+        />
 		<param  name="background" type="text" format="txt" multiple="true" label="Entity ids in background set, e.g. NCBIGene:84570, NCBIGene:3630; used in over-representation tests" />
-		<param  name="ontology" type="text" format="txt" multiple="false" label="ontology id. Must be obo id. Examples: go, mp, hp, uberon (optional: will be inferred if left blank)" />
-		<param  name="subject_category" type="text" format="txt" multiple="false" label="Default: gene. Other types may be used e.g. disease but statistics may not make sense" />
+		<param  name="ontology" type="text" format="txt" multiple="false" value="hp" label="ontology id. Must be obo id. Examples: go, mp, hp, uberon (optional: will be inferred if left blank)" />
+		<param  name="subject_category" type="text" format="txt" multiple="false" label="Other types may be used e.g. disease but statistics may not make sense" value="gene"/>
 		<param  name="taxon" type="text" format="txt" multiple="true" label="must be NCBITaxon CURIE. Example: NCBITaxon:9606" />
-		<param  name="object_category" type="text" format="txt" multiple="false" label="E.g. phenotype, function" />
+		<param  name="object_category" type="text" format="txt" multiple="false" label="E.g. phenotype, function" value="phenotype" />
 		<param name="max_p_value" type="text" format="txt" multiple="false" value="0.05" label="Exclude results with p-value greater than this"/>
 	</inputs>
 	<expand macro="outputs" />
