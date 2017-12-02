@@ -1,0 +1,51 @@
+<tool id="monarch-bioentityset-overrepresentation" name="Bioentity Set Get Over Representation" version="0.1.0">
+	<macros>
+		<import>macros.xml</import>
+	</macros>
+	<expand macro="frontmatter" />
+	<command><![CDATA[
+curl --silent -X GET --header 'Accept: application/json' 'https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/?object_category=phenotype&subject=NCBIGene%3A6295&subject=NCBIGene%3A1258&subject=NCBIGene%3A3614&subject=NCBIGene%3A26121&subject=NCBIGene%3A7275&subject=NCBIGene%3A55857&subject=NCBIGene%3A79797&subject=NCBIGene%3A10594&subject=NCBIGene%3A64218&subject=NCBIGene%3A7401&ontology=hp&subject_category=gene&taxon=NCBITaxon%3A9606&object_category=phenotype&max_p_value=0.05' > $output
+	]]></command>
+	<inputs>
+		<param  name="object_category" type="text" format="txt" multiple="false" label="CATEGORY of entity at link OBJECT (target), e.g. function, phenotype, disease" />
+		<param  name="subject" type="text" format="txt" multiple="true" label="Entity ids to be examined, e.g. NCBIGene:9342, NCBIGene:7227, NCBIGene:8131, NCBIGene:157570, NCBIGene:51164, NCBIGene:6689, NCBIGene:6387" />
+		<param  name="background" type="text" format="txt" multiple="true" label="Entity ids in background set, e.g. NCBIGene:84570, NCBIGene:3630; used in over-representation tests" />
+		<param  name="ontology" type="text" format="txt" multiple="false" label="ontology id. Must be obo id. Examples: go, mp, hp, uberon (optional: will be inferred if left blank)" />
+		<param  name="subject_category" type="text" format="txt" multiple="false" label="Default: gene. Other types may be used e.g. disease but statistics may not make sense" />
+		<param  name="taxon" type="text" format="txt" multiple="true" label="must be NCBITaxon CURIE. Example: NCBITaxon:9606" />
+		<param  name="object_category" type="text" format="txt" multiple="false" label="E.g. phenotype, function" />
+		<param name="max_p_value" type="text" format="txt" multiple="false" value="0.05" label="Exclude results with p-value greater than this"/>
+	</inputs>
+	<expand macro="outputs" />
+	<tests>
+		<!--emulate: https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/
+		?object_category=phenotype
+subject=NCBIGene%3A6295
+subject=NCBIGene%3A1258
+subject=NCBIGene%3A3614
+subject=NCBIGene%3A26121
+subject=NCBIGene%3A7275
+subject=NCBIGene%3A55857
+subject=NCBIGene%3A79797
+subject=NCBIGene%3A10594
+subject=NCBIGene%3A64218
+subject=NCBIGene%3A7401
+ontology=hp
+subject_category=gene
+taxon=NCBITaxon%3A9606
+object_category=phenotype
+max_p_value=0.05-->
+		<test>
+			<param name="object_category" value="phenotype"/>
+			<param name="subject" value="NCBIGene%3A6295,NCBIGene%3A1258,NCBIGene%3A3614,NCBIGene%3A26121,NCBIGene%3A7275,NCBIGene%3A55857,NCBIGene%3A79797,NCBIGene%3A10594,NCBIGene%3A64218,NCBIGene%3A7401"/>
+			<param name="ontology" value="hp"/>
+			<param name="subject_category" value="gene"/>
+			<param name="taxon" value="NCBITaxon:9606"/>
+			<param name="object_category" value="phenotype"/>
+			<param name="max_p_value" value="0.05"/>
+			<output name="output" file="bioentityset-overrepresentation.json"/>
+		</test>
+	</tests>
+	<expand macro="citations" />
+</tool>
+
