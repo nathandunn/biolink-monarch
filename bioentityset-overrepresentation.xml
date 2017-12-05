@@ -1,12 +1,12 @@
 <tool id="monarch-bioentityset-overrepresentation" name="Bioentity Set Get Over Representation" version="0.1.0">
-	<macros>
-		<import>macros.xml</import>
-	</macros>
+    <macros>
+        <import>macros.xml</import>
+    </macros>
     <requirements>
         <requirement type="package" version="1.5">jq</requirement>
     </requirements>
-	<expand macro="frontmatter" />
-	<command><![CDATA[
+    <expand macro="frontmatter"/>
+    <command><![CDATA[
 #*
 curl --silent -X GET --header 'Accept: application/json' 'https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/?object_category=phenotype&subject=NCBIGene%3A6295&subject=NCBIGene%3A1258&subject=NCBIGene%3A3614&subject=NCBIGene%3A26121&subject=NCBIGene%3A7275&subject=NCBIGene%3A55857&subject=NCBIGene%3A79797&subject=NCBIGene%3A10594&subject=NCBIGene%3A64218&subject=NCBIGene%3A7401&ontology=hp&subject_category=gene&taxon=NCBITaxon%3A9606&object_category=phenotype&max_p_value=0.05' > $output
 *#
@@ -34,30 +34,38 @@ echo -e "p\tn\tp_uncorrected\tc" > $output_tsv
 
 cat $output_json | jq -r '.results[] | flatten | @tsv ' >> $output_tsv
 	]]></command>
-	<inputs>
-		<param  name="object_category" type="text" format="txt" multiple="false" label="CATEGORY of entity at link OBJECT (target), e.g. function, phenotype, disease" />
-		<param  name="subject" type="text" format="txt" multiple="true" label="Entity ids to be examined, e.g. NCBIGene:6295,NCBIGene:1258 ,NCBIGene:3614 ,NCBIGene:26121 ,NCBIGene:7275 ,NCBIGene:55857 ,NCBIGene:79797 ,NCBIGene:10594 ,NCBIGene:64218 ,NCBIGene:7401"
+    <inputs>
+        <param name="object_category" type="text" format="txt" multiple="false"
+               label="CATEGORY of entity at link OBJECT (target), e.g. function, phenotype, disease"/>
+        <param name="subject" type="text" format="txt" multiple="true"
+               label="Entity ids to be examined, e.g. NCBIGene:6295,NCBIGene:1258 ,NCBIGene:3614 ,NCBIGene:26121 ,NCBIGene:7275 ,NCBIGene:55857 ,NCBIGene:79797 ,NCBIGene:10594 ,NCBIGene:64218 ,NCBIGene:7401"
         />
-		<param  name="background" type="text" format="txt" multiple="true" label="Entity ids in background set, e.g. NCBIGene:84570, NCBIGene:3630; used in over-representation tests" />
-		<param  name="ontology" type="text" format="txt" multiple="false" value="hp" label="ontology id. Must be obo id. Examples: go, mp, hp, uberon (optional: will be inferred if left blank)" />
-		<param  name="subject_category" type="text" format="txt" multiple="false" label="Other types may be used e.g. disease but statistics may not make sense" value="gene"/>
-		<param  name="taxon" type="text" format="txt" multiple="true" label="must be NCBITaxon CURIE. Example: NCBITaxon:9606" />
-		<param  name="object_category" type="text" format="txt" multiple="false" label="E.g. phenotype, function" value="phenotype" />
-		<param name="max_p_value" type="text" format="txt" multiple="false" value="0.05" label="Exclude results with p-value greater than this"/>
-	</inputs>
-	<outputs>
-		<data name="output_json" format="json"/>
-		<data 
-			name="output_tsv" 
-			format="tsv"
-			>
-		</data>
-	</outputs>
-	<tests>
-		<!--
+        <param name="background" type="text" format="txt" multiple="true"
+               label="Entity ids in background set, e.g. NCBIGene:84570, NCBIGene:3630; used in over-representation tests"/>
+        <param name="ontology" type="text" format="txt" multiple="false" value="hp"
+               label="ontology id. Must be obo id. Examples: go, mp, hp, uberon (optional: will be inferred if left blank)"/>
+        <param name="subject_category" type="text" format="txt" multiple="false"
+               label="Other types may be used e.g. disease but statistics may not make sense" value="gene"/>
+        <param name="taxon" type="text" format="txt" multiple="true"
+               label="must be NCBITaxon CURIE. Example: NCBITaxon:9606"/>
+        <param name="object_category" type="text" format="txt" multiple="false" label="E.g. phenotype, function"
+               value="phenotype"/>
+        <param name="max_p_value" type="text" format="txt" multiple="false" value="0.05"
+               label="Exclude results with p-value greater than this"/>
+    </inputs>
+    <outputs>
+        <data name="output_json" format="json"/>
+        <data
+                name="output_tsv"
+                format="tsv"
+        >
+        </data>
+    </outputs>
+    <tests>
+        <!--
 
-		emulate: https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/
-		?object_category=phenotype
+        emulate: https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/
+        ?object_category=phenotype
 subject=NCBIGene%3A6295
 subject=NCBIGene%3A1258
 subject=NCBIGene%3A3614
@@ -73,18 +81,37 @@ subject_category=gene
 taxon=NCBITaxon%3A9606
 object_category=phenotype
 max_p_value=0.05-->
-		<test>
-			<param name="object_category" value="phenotype"/>
-			<param name="subject" value="NCBIGene%3A6295,NCBIGene%3A1258,NCBIGene%3A3614,NCBIGene%3A26121,NCBIGene%3A7275,NCBIGene%3A55857,NCBIGene%3A79797,NCBIGene%3A10594,NCBIGene%3A64218,NCBIGene%3A7401"/>
-			<param name="ontology" value="hp"/>
-			<param name="subject_category" value="gene"/>
-			<param name="taxon" value="NCBITaxon:9606"/>
-			<param name="object_category" value="phenotype"/>
-			<param name="max_p_value" value="0.05"/>
-			<output name="output_json" file="bioentityset-overrepresentation.json"/>
-			<output name="output_tsv" file="bioentityset-overrepresentation.tsv"/>
-		</test>
-	</tests>
-	<expand macro="citations" />
+        <test>
+            <param name="object_category" value="phenotype"/>
+            <param name="subject"
+                   value="NCBIGene%3A6295,NCBIGene%3A1258,NCBIGene%3A3614,NCBIGene%3A26121,NCBIGene%3A7275,NCBIGene%3A55857,NCBIGene%3A79797,NCBIGene%3A10594,NCBIGene%3A64218,NCBIGene%3A7401"/>
+            <param name="ontology" value="hp"/>
+            <param name="subject_category" value="gene"/>
+            <param name="taxon" value="NCBITaxon:9606"/>
+            <param name="object_category" value="phenotype"/>
+            <param name="max_p_value" value="0.05"/>
+            <!--<output name="output_json" file="bioentityset-overrepresentation.json"/>-->
+            <!--<output name="output_tsv" file="bioentityset-overrepresentation.tsv"/>-->
+            <output name="output_json">
+                <assert_contents>
+                    <has_text text="Peripheral visual field loss"/>
+                    <has_text text="HP:0007994"/>
+                    <has_text text="0.00012748940079756357"/>
+                    <has_text text="0.039139246044852014"/>
+                    <has_text text='{"results": [{"p":'/>
+                </assert_contents>
+            </output>
+            <output name="output_tsv">
+                <assert_contents>
+                    <has_text text="Peripheral visual field loss"/>
+                    <has_text text="HP:0007994"/>
+                    <has_text text="0.00012748940079756357"/>
+                    <has_text text="0.039139246044852014"/>
+                    <has_n_columns n="4"/>
+                </assert_contents>
+            </output>
+        </test>
+    </tests>
+    <expand macro="citations"/>
 </tool>
 
