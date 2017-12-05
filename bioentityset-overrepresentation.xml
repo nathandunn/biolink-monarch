@@ -2,6 +2,9 @@
 	<macros>
 		<import>macros.xml</import>
 	</macros>
+    <requirements>
+        <requirement type="package" version="1.5">jq</requirement>
+    </requirements>
 	<expand macro="frontmatter" />
 	<command><![CDATA[
 #*
@@ -47,7 +50,6 @@ cat $output_json | jq -r '.results[] | flatten | @tsv ' >> $output_tsv
 		<data 
 			name="output_tsv" 
 			format="tsv"
-			header_row="1"
 			>
 		</data>
 	</outputs>
