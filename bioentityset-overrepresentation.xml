@@ -21,7 +21,18 @@ curl --silent -X GET --header 'Accept: application/json' 'https://api-dev.monarc
 #set $background_string += '&background='+str($word)
 #end for
 
-curl --silent -X GET --header 'Accept: application/json' 'https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/?object_category=$object_category$subject_string&background=$background_string&ontology=$ontology&subject_category=$subject_category&taxon=$taxon&object_category=$object_category&max_p_value=$max_p_value' > $output
+#*
+jq  '.results[] | flatten | @tsv '
+*#
+curl --silent -X GET --header 'Accept: application/json' 'https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/?object_category=$object_category$subject_string&background=$background_string&ontology=$ontology&subject_category=$subject_category&taxon=$taxon&object_category=$object_category&max_p_value=$max_p_value' > $output_json
+
+&&
+
+echo -e "p\tn\tp_uncorrected\tc" > $output_tsv
+
+&&
+
+cat $output_json | jq -r '.results[] | flatten | @tsv ' >> $output_tsv
 	]]></command>
 	<inputs>
 		<param  name="object_category" type="text" format="txt" multiple="false" label="CATEGORY of entity at link OBJECT (target), e.g. function, phenotype, disease" />
@@ -34,9 +45,19 @@ curl --silent -X GET --header 'Accept: application/json' 'https://api-dev.monarc
 		<param  name="object_category" type="text" format="txt" multiple="false" label="E.g. phenotype, function" value="phenotype" />
 		<param name="max_p_value" type="text" format="txt" multiple="false" value="0.05" label="Exclude results with p-value greater than this"/>
 	</inputs>
-	<expand macro="outputs" />
+	<outputs>
+		<data name="output_json" format="json"/>
+		<data 
+			name="output_tsv" 
+			format="tsv"
+			header_row="1"
+			>
+		</data>
+	</outputs>
 	<tests>
-		<!--emulate: https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/
+		<!--
+
+		emulate: https://api-dev.monarchinitiative.org/api/bioentityset/overrepresentation/
 		?object_category=phenotype
 subject=NCBIGene%3A6295
 subject=NCBIGene%3A1258
@@ -61,7 +82,8 @@ max_p_value=0.05-->
 			<param name="taxon" value="NCBITaxon:9606"/>
 			<param name="object_category" value="phenotype"/>
 			<param name="max_p_value" value="0.05"/>
-			<output name="output" file="bioentityset-overrepresentation.json"/>
+			<output name="output_json" file="bioentityset-overrepresentation.json"/>
+			<output name="output_tsv" file="bioentityset-overrepresentation.tsv"/>
 		</test>
 	</tests>
 	<expand macro="citations" />
