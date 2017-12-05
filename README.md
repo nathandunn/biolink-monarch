@@ -17,3 +17,6 @@ The [Biolink API](https://github.com/biolink/biolink-api) is an open API  biolog
 ![Screen Shot](images/ScreenShot2.png)
 
 
+Upload new tool.
+
+    planemo shed_upload --shed_target toolshed
